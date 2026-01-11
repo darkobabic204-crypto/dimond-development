@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="bs">
+<head>
+<meta charset="UTF-8">
+<title>Dimond Development | Staff Pravila</title>
+<style>
+html,body{
+  margin:0;
+  padding:0;
+  width:100%;
+  height:100%;
+  background:#0b132b;
+  color:white;
+  font-family:Arial, sans-serif;
+  overflow:hidden;
+}
+canvas{
+  position:fixed;
+  top:0;left:0;
+  width:100%;height:100%;
+  z-index:1;
+}
+#box{
+  position:relative;
+  z-index:2;
+  max-width:900px;
+  margin:40px auto;
+  background:rgba(0,0,0,0.6);
+  padding:25px;
+  border-radius:15px;
+  overflow-y:auto;
+  height:85vh;
+}
+h1,h2{text-align:center;}
+button{
+  padding:12px 20px;
+  font-size:16px;
+  border:none;
+  border-radius:8px;
+  cursor:pointer;
+  background:#5bc0be;
+  color:black;
+  margin:15px auto;
+  display:block;
+}
+.rules{display:none;}
+ol li{margin-bottom:10px;}
+</style>
+</head>
+<body>
+
+<canvas id="snow"></canvas>
+
+<div id="box">
+<h1>❄️ Dimond Development ❄️</h1>
+<h2>Staff Pravilnik</h2>
+
+<button onclick="showRules()">📜 Pogledaj Pravila</button>
+
+<div class="rules" id="rules">
+<p><b>OPŠTA PRAVILA STAFF TEAMA</b></p>
+<ol>
+<li>Morate poštovati svoje kolege i vođe.</li>
+<li>Zabranjeno smještanje banova/demota drugima.</li>
+<li>Zabranjeno pljuvanje drugih zajednica/servera.</li>
+<li>Zabranjeno iznošenje staff informacija.</li>
+<li>DMADV = automatski ban i blacklista.</li>
+<li>Ne žicajte rank.</li>
+<li>Podležni ste kaznama kao i svi ostali.</li>
+<li>Kazne važe jednako za sve.</li>
+<li>Napadanje i drama = uklanjanje iz staffa.</li>
+<li>Odlazak iz staffa mora biti najavljen.</li>
+<li>Ne uplićite se gdje niste nadležni.</li>
+<li>Drama u staff chatu se kažnjava.</li>
+<li>Ne najavljeno odsustvo 2+ dana = skidanje ranka.</li>
+<li>Balkanski jezik u EN tiketima = kazna.</li>
+<li>Rasprava staffa u tiketu = skidanje pozicije.</li>
+<li>Zloupotreba staff duty-a = rankdown.</li>
+<li>Kazna = ispadanje iz Staff of the Month.</li>
+<li>Zloupotreba pozicije = permanent ban.</li>
+<li>Eksploatacija rupa u pravilima = ban.</li>
+</ol>
+<p><b>@Staff Team</b></p>
+</div>
+</div>
+
+<script>
+function showRules(){
+ document.getElementById("rules").style.display="block";
+}
+
+const canvas=document.getElementById("snow");
+const ctx=canvas.getContext("2d");
+function resize(){
+ canvas.width=window.innerWidth;
+ canvas.height=window.innerHeight;
+}
+resize(); window.onresize=resize;
+
+let flakes=[];
+for(let i=0;i<300;i++){
+ flakes.push({
+  x:Math.random()*canvas.width,
+  y:Math.random()*canvas.height,
+  r:Math.random()*3+1,
+  d:Math.random()*6+6
+ });
+}
+
+function animate(){
+ ctx.clearRect(0,0,canvas.width,canvas.height);
+ ctx.fillStyle="white";
+ ctx.beginPath();
+ flakes.forEach(f=>{
+  ctx.moveTo(f.x,f.y);
+  ctx.arc(f.x,f.y,f.r,0,Math.PI*2);
+  f.y+=f.d;
+  if(f.y>canvas.height){f.y=-10;f.x=Math.random()*canvas.width;}
+ });
+ ctx.fill();
+ requestAnimationFrame(animate);
+}
+animate();
+</script>
+
+</body>
+</html>
